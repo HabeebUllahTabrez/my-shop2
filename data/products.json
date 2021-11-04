@@ -1,0 +1,16 @@
+[
+    {
+        "title": "A Book!",
+        "imageUrl": "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
+        "description": "This is an awesome book! Buy it!",
+        "price": 19.49,
+        "id": "123h45g"
+    },
+    {
+        "title": "Another Product",
+        "imageUrl": "https://res.cloudinary.com/dwzmsvp7f/image/fetch/q_75,f_auto,w_1316/https%3A%2F%2Feventimages.insider.in%2Fimage%252Fmain%252FCbDosPFQGCiBH2pKnydn_YTFF_Insider_658x360_event.jpg",
+        "description": "New product is here",
+        "price": 69.99,
+        "id": "xaea12f"
+    }
+]
