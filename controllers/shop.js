@@ -2,34 +2,58 @@ const Product = require("../models/product");
 const Cart = require("../models/cart");
 
 exports.getProducts = (req, res, next) => {
-    Product.fetchAll((products) => {
-        res.render("shop/product-list", {
-            prods: products,
-            pageTitle: "All Products",
-            path: "/products",
-        });
-    });
+    Product.findAll()
+        .then((products) => {
+            res.render("shop/product-list", {
+                prods: products,
+                pageTitle: "All Products",
+                path: "/products",
+            });
+        })
+        .catch((err) => console.log(err));
 };
 
 exports.getProduct = (req, res, next) => {
     const prodId = req.params.productId;
-    Product.findById(prodId, (product) => {
-        res.render("shop/product-detail", {
-            pageTitle: product.title,
-            path: "/products",
-            product: product,
-        });
-    });
+
+    Product.findByPk(prodId)
+        .then((product) => {
+            res.render("shop/product-detail", {
+                pageTitle: products.title,
+                path: "/products",
+                product: product,
+            });
+        })
+        .catch((err) => console.log(err));
+
+    // Alternate way to do the same job using findAll method
+    // This method returns an array of products even if it is one
+
+    // Product.findAll({
+    //     where: {
+    //         id: prodId,
+    //     },
+    // })
+    //     .then((products) => {
+    //         res.render("shop/product-detail", {
+    //             pageTitle: products[0].title,
+    //             path: "/products",
+    //             product: products[0],
+    //         });
+    //     })
+    //     .catch((err) => console.log(err));
 };
 
 exports.getIndex = (req, res, next) => {
-    Product.fetchAll((products) => {
-        res.render("shop/index", {
-            prods: products,
-            pageTitle: "Shop",
-            path: "/",
-        });
-    });
+    Product.findAll()
+        .then((products) => {
+            res.render("shop/index", {
+                prods: products,
+                pageTitle: "Shop",
+                path: "/",
+            });
+        })
+        .catch((err) => console.log(err));
 };
 
 exports.postCart = (req, res, next) => {
@@ -68,8 +92,8 @@ exports.postCartDeleteProduct = (req, res, next) => {
     const prodId = req.body.id;
     Product.findById(prodId, (product) => {
         Cart.deleteProduct(prodId, product.price);
-        res.redirect('/cart');
-    })
+        res.redirect("/cart");
+    });
 };
 
 exports.getOrders = (req, res, next) => {
